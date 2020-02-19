@@ -17,7 +17,7 @@ class MuseumTest < Minitest::Test
     assert_instance_of Museum, @dmns
     assert_instance_of Exhibit, @gems_and_minerals
     assert_instance_of Exhibit, @dead_sea_scrolls
-    assert_instance_of Exhibit, @imax 
+    assert_instance_of Exhibit, @imax
   end
 
   def test_it_has_attributes
@@ -26,6 +26,14 @@ class MuseumTest < Minitest::Test
 
   def test_it_starts_with_no_exhibits
     assert_equal [], @dmns.exhibits
+  end
+
+  def test_it_can_add_exhibits
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+
+    assert_equal [@gems_and_minerals, @dead_sea_scrolls, @imax], @dmns.exhibits
   end
 end
 
