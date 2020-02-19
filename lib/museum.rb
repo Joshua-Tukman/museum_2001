@@ -13,12 +13,18 @@ class Museum
   end
 
   def add_patron(patron)
-    @patrons_in_attendance << patron    
+    @patrons_in_attendance << patron
   end
 
   def recommend_exhibits(patron)
     recommendations = []
     exhibit_names = @exhibits.map{|exhibit|exhibit.name}
-    require "pry"; binding.pry
+    @patrons_in_attendance.each do |patron|
+      recommendations << exhibit_names.find_all {|name| name  == patron.interests}
+    end
+
+    #require "pry"; binding.pry
+  recommendations
   end
+
 end
