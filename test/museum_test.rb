@@ -11,6 +11,8 @@ class MuseumTest < Minitest::Test
     @gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
     @dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
     @imax = Exhibit.new({name: "IMAX",cost: 15})
+    @patron_1 = Patron.new("Bob", 20)
+    @patron_2 = Patron.new("Sally", 20)
   end
 
   def test_it_exists
@@ -18,6 +20,8 @@ class MuseumTest < Minitest::Test
     assert_instance_of Exhibit, @gems_and_minerals
     assert_instance_of Exhibit, @dead_sea_scrolls
     assert_instance_of Exhibit, @imax
+    assert_instance_of Patron, @patron_1
+    assert_instance_of Patron, @patron_2
   end
 
   def test_it_has_attributes
@@ -35,48 +39,18 @@ class MuseumTest < Minitest::Test
 
     assert_equal [@gems_and_minerals, @dead_sea_scrolls, @imax], @dmns.exhibits
   end
+
+  def test_it_can_recommend_exhibits_based_on_patron_interests
+    @patron_1.add_interest("Dead Sea Scrolls")
+    @patron_1.add_interest("Gems and Minerals")
+
+  end
 end
 
 
 # Use TDD to create a `Museum` class that responds to the following interaction pattern. For the `recommend_exhibits` method, the `Museum` should recommend exhibits that match a `Patron`'s interests.
-#
-# ```ruby
-# pry(main)> require './lib/museum'
-# # => true
-#
-# pry(main)> require './lib/patron'
-# # => true
-#
-# pry(main)> require './lib/exhibit'
-# # => true
-#
-# pry(main)> dmns = Museum.new("Denver Museum of Nature and Science")
-# # => #<Museum:0x00007fb400a6b0b0...>
-#
-# pry(main)> dmns.name
-# # => "Denver Museum of Nature and Science"
-#
-# pry(main)> dmns.exhibits
-# # => []
-#
-# pry(main)> gems_and_minerals = Exhibit.new({name: "Gems and Minerals", cost: 0})
-# # => #<Exhibit:0x00007fb400bbcdd8...>
-#
-# pry(main)> dead_sea_scrolls = Exhibit.new({name: "Dead Sea Scrolls", cost: 10})
-# # => #<Exhibit:0x00007fb400b851f8...>
-#
-# pry(main)> imax = Exhibit.new({name: "IMAX",cost: 15})
-# # => #<Exhibit:0x00007fb400acc590...>
-#
-# pry(main)> dmns.add_exhibit(gems_and_minerals)
-#
-# pry(main)> dmns.add_exhibit(dead_sea_scrolls)
-#
-# pry(main)> dmns.add_exhibit(imax)
-#
-# pry(main)> dmns.exhibits
-# # => [#<Exhibit:0x00007fb400bbcdd8...>, #<Exhibit:0x00007fb400b851f8...>, #<Exhibit:0x00007fb400acc590...>]
-#
+
+
 # pry(main)> patron_1 = Patron.new("Bob", 20)
 # # => #<Patron:0x00007fb400a51cc8...>
 #
